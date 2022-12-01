@@ -42,9 +42,10 @@
 
 		def my_function2(*args, **kwargs):
 			encrypted = Element('test-input2').element.value
+			
 			if encrypted in entries:
-				Element('text2').write(entries[encrypted])
 				Element('text2').element.style.color = 'green'
+				Element('text2').write(entries[encrypted])
 			else:
 				Element('text2').element.style.color = 'red'
 				Element('text2').write('Your message doesnt exist')
