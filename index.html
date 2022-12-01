@@ -8,7 +8,7 @@
 	<py-env>
 		- hashlib
 	</py-env>
-	<title></title>
+	<title>Encrypted Messages</title>
 </head>
 
 
@@ -32,18 +32,22 @@
 		import hashlib
 		import csv
 
+		entries = {}
 		def my_function(*args, **kwargs):
 			message = Element('test-input').element.value
 			encrypted = hashlib.sha256(message.encode()).hexdigest()
 			Element('text1').write(encrypted)
+			entries[encrypted] = message
 
 
 		def my_function2(*args, **kwargs):
-			with open('temp1.csv', 'a') as f:
-				writer = csv.writer(f)
-			result = Element('text2')
-			result.element.innerText = Element('test-input2').element.value
-			result.write(Element('test-input').element.value)
+			encrypted = Element('test-input2').element.value
+			if encrypted in entries:
+				Element('text2').write(entries[encrypted])
+				Element('text2').element.style.color = 'green'
+			else:
+				Element('text2').element.style.color = 'red'
+				Element('text2').write('Your message doesnt exist')
 
 
 	</py-script>
