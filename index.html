@@ -39,9 +39,12 @@
 
 
 		def my_function2(*args, **kwargs):
+			with open('temp1.csv', 'a') as f:
+				writer = csv.writer(f)
 			result = Element('text2')
 			result.element.innerText = Element('test-input2').element.value
 			result.write(Element('test-input').element.value)
+
 
 	</py-script>
 </body>
