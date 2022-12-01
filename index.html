@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+	<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+	<py-env>
+		- hashlib
+	</py-env>
+	<title></title>
+</head>
+
+
+
+<body>
+	<p>Please type your message below to get it encrypted</p>
+	<input type='text' id='test-input' /><br />
+	<button py-onClick="my_function()" id='submitbutton' type=submit >Send</button>
+	<div id='test-output'>Encrypted Version:</div>
+	<p style='color:green;' id='text1'></p>
+
+
+	<div>----------------------------------------</div>
+	<p>Please type your encrypted message below to get it decrypted</p>
+	<input type='text' id='test-input2' /><br />
+	<button py-onClick="my_function2()" id='submitbutton2' type=submit >Send</button>
+	<div id='test-output2'>Decrypted Version:</div>
+	<p id='text2'></p>
+
+	<py-script>
+		import hashlib
+		import csv
+
+		def my_function(*args, **kwargs):
+			message = Element('test-input').element.value
+			encrypted = hashlib.sha256(message.encode()).hexdigest()
+			Element('text1').write(encrypted)
+
+
+		def my_function2(*args, **kwargs):
+			result = Element('text2')
+			result.element.innerText = Element('test-input2').element.value
+			result.write(Element('test-input').element.value)
+
+	</py-script>
+</body>
+</html>
